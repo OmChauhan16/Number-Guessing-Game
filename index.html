@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: aqua;
+        }
+
+        .container {
+            background-color: aliceblue;
+            border-radius: 40px;
+        }
+
+        .head {
+            padding: 30px;
+            border: 2px solid aqua;
+        }
+
+        .entry {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .entry input {
+            height: 60px;
+            width: 300px;
+            border-radius: 20px;
+            margin-right: 20px;
+            margin-bottom: 50px;
+            border: 4px solid aqua;
+        }
+
+        #btn {
+            align-items: center;
+            background-clip: padding-box;
+            background-color: #fa6400;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 1.25;
+            margin: 0;
+            min-height: 3rem;
+            padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+            position: relative;
+            text-decoration: none;
+            transition: all 250ms;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            width: auto;
+            padding-top: 5px;
+        }
+
+        #btn:hover,
+        #btn:focus {
+            background-color: #fb8332;
+            box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        }
+
+        #btn:hover {
+            transform: translateY(-1px);
+        }
+
+        #btn:active {
+            background-color: #c85000;
+            box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="head">
+            <h2>Guess a number between 1 and 100</h2>
+        </div>
+
+        <div class="entry">
+            <input type="text" name="number" id="number">
+            <button id="btn">Guess</button>
+            <p id="wrong"></p>
+            <p id="guesses">No. of Guesses:0</p>
+        </div>
+    </div>
+
+    <script>
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        const inputNumber = document.getElementById('number');
+        const btn = document.getElementById('btn');
+        let wrong = document.getElementById('wrong');
+        let guesses = document.getElementById('guesses');
+        let numGuesses = 0;
+
+        btn.addEventListener('click', function () {
+            if (inputNumber.value < 1 || inputNumber.value > 100 || isNaN(inputNumber.value)) {
+                wrong.innerHTML = "Enter number between 1 to 100";
+            }
+            else {
+                numGuesses++;
+                guesses.innerHTML = "No. of Guesses: " + numGuesses;
+                if (inputNumber.value > randomNumber) {
+                    wrong.innerHTML = "You guessed too high!";
+                    inputNumber.value = "";
+                }
+                else if (inputNumber.value < randomNumber) {
+                    wrong.innerHTML = "You guessed too low!";
+                    inputNumber.value = "";
+                }
+                else {
+                    wrong.innerHTML = "Congrats, You guessed the right number";
+                    setTimeout(() => {
+                        resetGame();
+                    }, 5000)
+                }
+            }
+        });
+
+        function resetGame() {
+            numofGuesses = 0;
+            answer = Math.floor(Math.random() * 100) + 1;
+            inputNumber.value = "";
+            guesses.innerHTML = "No. of guesses:0";
+        }
+
+
+    </script>
+</body>
+
+</html>
